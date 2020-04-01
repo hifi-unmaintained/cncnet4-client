@@ -17,7 +17,6 @@
 #include <stdint.h>
 
 #ifdef WIN32
-    #include <winsock.h>
     #include <winsock2.h>
     #include <wsipx.h>
 
@@ -36,7 +35,9 @@
     #define FALSE 0
 #endif
 
-#include <unistd.h>
+#ifndef WIN32
+    #include <unistd.h>
+#endif
 
 #define NET_BUF_SIZE 2048
 

@@ -21,6 +21,10 @@
 
 #include <string.h>
 
+#ifdef WIN32
+    #include <io.h>
+#endif
+
 static struct sockaddr_in net_local;
 static uint8_t net_ibuf[NET_BUF_SIZE];
 static uint8_t net_obuf[NET_BUF_SIZE];

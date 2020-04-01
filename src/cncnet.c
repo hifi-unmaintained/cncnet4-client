@@ -26,6 +26,7 @@
 #include <wsipx.h>
 #include <assert.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 int my_p2p = 0;
 
@@ -50,11 +51,11 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
         int cfg_port = 9001;
 
         #ifdef _DEBUG
-        freopen("stdout.txt", "w", stdout);
+        freopen("cncnet.log", "w", stdout);
         setvbuf(stdout, NULL, _IONBF, 0); 
         #endif
 
-        printf("CnCNet git~%s\n", CNCNET_REV);
+        printf("CnCNet git~%s\n", GIT_COMMIT_SHA1_SHORT);
 
         net_init();
 
@@ -386,10 +387,10 @@ int WINAPI _IPX_Get_Outstanding_Buffer95(void *ptr)
     memset(ptr, 0, 30);
 
     /* using some old magic */
-    int16_t *len = ptr + 2;
-    char *from = ptr + 22;
-    char *buf = ptr + 30;
-    char *p2p = ptr + 18;
+    int16_t *len = (int16_t *)ptr + 2;
+    char *from = (char *)ptr + 22;
+    char *buf = (char *)ptr + 30;
+    char *p2p = (char *)ptr + 18;
 
     struct sockaddr_ipx ipx_from;
     struct timeval tv;
